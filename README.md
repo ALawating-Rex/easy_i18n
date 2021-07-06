@@ -52,3 +52,24 @@ config = {
 }
 a_i18n = Ai18n(locales=["en", "zh"], config=config)
 ```
+
+## NOTE 注意
+```
+**NOTE:** 
+for example your locale is en , define load_path as a absolutely path is recommended,
+create an en.json in this path. the content for example is: (default_module should equal g)
+    {
+      "g": {
+        "hi": "hello world",
+        "test": "test 1"
+      },
+      "user": {
+        "hi": "user:hello world",
+        "user {id} is deleted": "user {id} is deleted"
+      }
+    }
+
+比如上述例子指定 load_path 为 /locales 且 Ai18n(locales=["en", "zh"], config=config)
+那么要提前在 /locales 下 创建 en.json 和 zh.json 
+json内容参考上述例子即可
+```

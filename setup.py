@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="UTF-8") as fh:
 
 setuptools.setup(
     name="easy_i18n",
-    version="1.1.0",
+    version="1.1.1",
     author="aex",
     author_email="aex.chen@qq.com",
     description="an easy way come true i18n for python3",
