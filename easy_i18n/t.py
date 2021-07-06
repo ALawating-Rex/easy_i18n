@@ -7,6 +7,7 @@ github: https://github.com/ALawating-Rex/easy_i18n
 """
 
 import json
+import os
 
 
 class Ai18n:
@@ -22,8 +23,12 @@ class Ai18n:
     :param tm: is a dict, contains all strings you want to translate.
 
     Example::
-        # after import a_i18n and t
+        from easy_i18n.t import Ai18n
 
+        a_i18n = Ai18n(locales=["en", "zh"], config={})
+        t = a_i18n.translate
+
+        # after import or define a_i18n and t
         # add translation dictionary manually.
         a_i18n.add(k="hi", message="hello by added")
         # print all the translation dictionary
@@ -76,9 +81,11 @@ class Ai18n:
             locales = [self.config.get("default_locale", "en")]
 
         for locale in locales:
+            tmp_file_path = os.path.join(self.config.get("load_path", "i18n"), locale + ".json")
+            if not os.path.exists(tmp_file_path):
+                continue
             try:
-                with open(self.config.get("load_path", "i18n") + "/" + locale + ".json", 'r',
-                          encoding=self.config.get("default_encoding", "UTF-8")) as load_f:
+                with open(tmp_file_path, 'r', encoding=self.config.get("default_encoding", "UTF-8")) as load_f:
                     if not self.tm.get(locale, {}):
                         self.tm[locale] = {}
                     load_dict = json.load(load_f)
@@ -134,7 +141,8 @@ class Ai18n:
         :return: tuple of True/False , and if False with exception.
         """
         try:
-            with open(self.config.get("load_path", "i18n") + "/" + locale + ".json", 'r') as load_f:
+            with open(os.path.join(self.config.get("load_path", "i18n"), locale + ".json"), 'r',
+                      encoding=self.config.get("default_encoding", "UTF-8")) as load_f:
                 if not self.tm.get(locale, {}):
                     self.tm[locale] = {}
                 load_dict = json.load(load_f)
