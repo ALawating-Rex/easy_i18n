@@ -160,9 +160,35 @@ class Ai18n:
         :return: string after translate.
         """
         tm = self.tm
+        message = str(message)
         locale = self.get_locale(locale)
         module = self.get_module(module)
-        return tm.get(locale, {}).get(module, {}).get(message, message)
+        locale_dict = tm.get(locale, {})
+        from_default_module = 0
+
+        # if locale not set , search in default_locale
+        if not locale_dict:
+            locale_dict = tm.get(self.get_locale(), {})
+        if not locale_dict:
+            return message
+
+        # if module not set , search in default_module
+        # if module set , but can't find it, then search in default_module
+        module_dict = locale_dict.get(module, {})
+        if not module_dict:
+            from_default_module = 1
+            module_dict = locale_dict.get(self.get_module(), {})
+        if not module_dict:
+            return message
+
+        res_message = module_dict.get(message, None)
+        if res_message is None:
+            if from_default_module == 1:
+                res_message = message
+            else:
+                module_dict = locale_dict.get(self.get_module(), {})
+                res_message = module_dict.get(message, message)
+        return str(res_message)
 
 
 if __name__ == '__main__':
@@ -182,3 +208,10 @@ if __name__ == '__main__':
     print(t("hi''"))
     print(t("hi_only_zh", locale="zh"))
     print(t("user {id} is deleted", locale="zh", module="user").format(id=1))
+
+    print(t("hi_only_en", locale="zh"))
+    print(t("only g has this", locale="zh", module="user"))
+    print(t("both g and user module has this", locale="zh", module="user"))
+    print(t("both g and user module has this", locale="zh", module="user1"))
+    print(t("only en and g has this", locale="zh"))
+    print(t("only en and g has this"))

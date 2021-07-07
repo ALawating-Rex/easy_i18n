@@ -3,11 +3,14 @@
     "hi": "你好1",
     "hi''": "你好''1",
     "hi_only_zh": "你好,只在zh.json 设置",
+    "only g has this": "只有默认模块有这个翻译",
+    "both g and user module has this": "用户模块和默认模块都有这个翻译-来自默认模块",
     "test": "测试1"
   },
   "user": {
     "hi": "用户：你好1",
     "test": "用户：测试1",
-    "user {id} is deleted": "用户 {id} 被删除"
+    "user {id} is deleted": "用户 {id} 被删除",
+    "both g and user module has this": "用户模块和默认模块都有这个翻译-来自用户模块"
   }
 }
