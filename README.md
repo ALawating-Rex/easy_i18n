@@ -1,7 +1,7 @@
 ## easy_i18n
 > an easy way come true i18n for python3  
 > 
-> 基于 python3 实现语言本地化
+> 基于 python3 实现语言国际化(i18n)
 > 
 > HomePage: https://github.com/ALawating-Rex/easy_i18n
 > 
